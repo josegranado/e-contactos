@@ -21,16 +21,12 @@ class Server {
         this.app.use(cors_1.default());
         this.app.use(express_1.default.json());
         this.app.use(express_1.default.urlencoded({ extended: false }));
-        this.app.use(express_1.default.static('public'));
     }
     routes() {
         this.app.use('/api/agendas', agendas_routes_1.default);
         this.app.use('/api/contactos', contactos_routes_1.default);
         this.app.use('/api/grupos', grupos_routes_1.default);
         this.app.use('/api/imagenes', imagenes_routes_1.default);
-        this.app.all('*', (req, res) => {
-            res.status(200).sendFile('index.html', { root: './public' });
-        });
     }
     start() {
         this.app.listen(this.app.get('port'), () => {

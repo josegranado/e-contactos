@@ -22,6 +22,7 @@ class Server
 		this.app.use(cors());
 		this.app.use(express.json());
 		this.app.use(express.urlencoded({ extended: false}));
+		this.app.use(express.static('public'))
 	}
 	routes() : void
 	{
@@ -29,6 +30,9 @@ class Server
 		this.app.use('/api/contactos', contactosRoutes);
 		this.app.use('/api/grupos', gruposRoutes);
 		this.app.use('/api/imagenes', imagenesRoutes );
+		this.app.all('*', (req: any, res: any) => {
+     		res.status(200).sendFile('index.html', { root: './public'});
+		});
 	}
 
 	start(): void
